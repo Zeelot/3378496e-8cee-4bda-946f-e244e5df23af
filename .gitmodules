@@ -1,0 +1,6 @@
+[submodule "vagrant/cookbooks"]
+	path = vagrant/cookbooks
+	url = git://github.com/Zeelot/vagrant-cookbooks.git
+[submodule "vagrant/roles"]
+	path = vagrant/roles
+	url = git://github.com/Zeelot/vagrant-chef-roles.git
