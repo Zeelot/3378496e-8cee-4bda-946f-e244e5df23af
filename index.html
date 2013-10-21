@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>3378496e-8cee-4bda-946f-e244e5df23af by Zeelot</title>
+
+		<link rel="stylesheet" href="css/styles.css"/>
+		<script class="template" type="text/mustache" data-name="siteData/item">
+			<div>
+				<h3>{{name}}</h3>
+				<ul>
+				{{#details}}
+					<li><strong>{{name}}:</strong> {{value}}</li>
+				{{/details}}
+				</ul>
+			</div>
+		</script>
+		<script class="template" type="text/mustache" data-name="relatedLink/item">
+			<li>{{title}} - {{href}}</li>
+		</script>
+	</head>
+	<body>
+		<div class="page-container">
+			<div class="form-container">
+				<form>
+					<input type="text" placeholder="URL" name="url" />
+					<button type="submit">Submit</button>
+				</form>
+			</div>
+			<div class="site-data">
+				<h2>Site Data</h2>
+				<div class="data"></div>
+			</div>
+			<div class="related-sites">
+				<h2>Related Links</h2>
+				<ul class="links"></ul>
+			</div>
+		</div>
+		<script src="js/vendor/jquery-1.10.2.js"></script>
+		<script src="js/vendor/underscore-1.5.2.js"></script>
+		<script src="js/vendor/backbone-1.0.0.js"></script>
+		<script src="js/vendor/hogan-1.0.0.js"></script>
+		<script src="js/app.js"></script>
+	</body>
+</html>
