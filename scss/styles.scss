@@ -1,0 +1,29 @@
+@import "compass/reset";
+@import "compass/utilities";
+@import "compass/css3";
+@import "compass/css3/user-interface";
+
+/**
+ * Generally, I split the css up into categories and have separate files for the
+ * various things that need maintaining on applications. Things like colors,
+ * fonts, and other theme related styles, for example, could go in a
+ * `theme.scss` file. "SMACSS" is a great book on the topic: http://smacss.com/
+ */
+
+* {
+	// If you don't already, I think I can convince you to love this.
+	@include box-sizing(border-box);
+}
+
+// Could keep track of a few font stacks.
+$fontSansSerif: Arial, "Helvetica Neue", Helvetica, sans-serif;
+
+body {
+	font-family: $fontSansSerif;
+}
+
+h2 {
+	font-weight: 800;
+	font-size: 1.5em;
+	margin: 10px 0;
+}
