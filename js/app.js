@@ -57,15 +57,22 @@
 		domainSearchView: null,
 		siteDataView: null,
 		initialize: function (options) {
+			// Create our site model for the page (we will pass this around).
 			this.siteModel = new SiteModel();
+
+			// View managing the form logic.
 			this.domainSearchView = new DomainSearchView({
 				el: this.$(".form-container"),
 				siteModel: this.siteModel
 			});
+
+			// View managing the site data display.
 			this.siteDataView = new SiteDataView({
 				el: this.$(".site-data"),
 				siteModel: this.siteModel
 			});
+
+			// View managing the related links
 			this.relatedLinksView = new RelatedLinksView({
 				el: this.$(".related-sites"),
 				siteModel: this.siteModel
@@ -77,7 +84,9 @@
 	 * A simple view that listens for the form to be submitted and updates the model.
 	 */
 	var DomainSearchView = Backbone.View.extend({
+		// The model that holds the url value.
 		siteModel: null,
+		// The input field we type the domain into.
 		$input: null,
 		events: {
 			"submit form": "onFormSubmit"
@@ -95,24 +104,28 @@
 		}
 	});
 
+	/**
+	 * This view takes care of displaying the site data when the url changes in
+	 * the model.
+	 */
 	var SiteDataView = Backbone.View.extend({
 		siteModel: null,
+		// The element holding our data.
 		$data: null,
 		initialize: function (options) {
 			this.siteModel = options.siteModel;
 
+			// Cache this element for later.
 			this.$data = this.$('.data');
 
 			this.listenTo(this.siteModel, "change", this.onSiteChange);
-			this.listenTo(this.siteModel, "update:siteData", this.onSiteDataChange);
+			this.listenTo(this.siteModel, "update:siteData", this.render);
 		},
 		onSiteChange: function () {
 			this.$data.empty();
 			this.siteModel.fetchSiteData();
+			// @TODO: move this to only happen when the user scrolls down.
 			this.siteModel.fetchRelatedLinks();
-		},
-		onSiteDataChange: function () {
-			this.render();
 		},
 		render: function () {
 			this.siteModel.siteDataCollection.each(_.bind(this.renderSiteDataModel, this));
@@ -122,17 +135,20 @@
 		}
 	});
 
+	/**
+	 * This view takes care of displaying the related links for a site.
+	 */
 	var RelatedLinksView = Backbone.View.extend({
 		siteModel: null,
+		// The UL holding all our links.
 		$links: null,
 		initialize: function (options) {
 			this.siteModel = options.siteModel;
+
+			// Cache this for later.
 			this.$links = this.$('.links');
 
-			this.listenTo(this.siteModel, "update:relatedLinks", this.onRelatedLinksChange);
-		},
-		onRelatedLinksChange: function () {
-			this.render();
+			this.listenTo(this.siteModel, "update:relatedLinks", this.render);
 		},
 		render: function () {
 			this.siteModel.relatedLinksCollection.each(_.bind(this.renderRelatedLinkModel, this));
