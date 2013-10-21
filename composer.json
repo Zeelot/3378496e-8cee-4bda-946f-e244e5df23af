@@ -1,0 +1,9 @@
+{
+	"name": "Zeelot/3378496e-8cee-4bda-946f-e244e5df23af",
+	"description": "Some app that does things.",
+	"license": "BSD-3-Clause",
+	"require": {
+		"php":           ">=5.3.10",
+		"guzzle/guzzle": "3.7.4"
+	}
+}
