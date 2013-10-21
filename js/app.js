@@ -67,7 +67,7 @@
 				siteModel: this.siteModel
 			});
 			this.relatedLinksView = new RelatedLinksView({
-				el: this.$(".related-links"),
+				el: this.$(".related-sites"),
 				siteModel: this.siteModel
 			});
 		}
@@ -124,10 +124,10 @@
 
 	var RelatedLinksView = Backbone.View.extend({
 		siteModel: null,
-		$list: null,
+		$links: null,
 		initialize: function (options) {
 			this.siteModel = options.siteModel;
-			this.$list = this.$('.list');
+			this.$links = this.$('.links');
 
 			this.listenTo(this.siteModel, "update:relatedLinks", this.onRelatedLinksChange);
 		},
@@ -138,7 +138,7 @@
 			this.siteModel.relatedLinksCollection.each(_.bind(this.renderRelatedLinkModel, this));
 		},
 		renderRelatedLinkModel: function (relatedLinkModel) {
-			this.$list.append(templates.get("relatedLink/item").render(relatedLinkModel.toJSON()));
+			this.$links.append(templates.get("relatedLink/item").render(relatedLinkModel.toJSON()));
 		}
 	});
 
@@ -220,16 +220,13 @@
 		},
 		onFetchedRelatedLinks: function (xml) {
 			// Find all the elements inside <SD> elements.
-			var $sd = $("RLS > *", xml);
-
-			console.log(xml);
+			var $rls = $("RLS > *", xml);
 
 			// Turn each one into a model instance.
-			$sd.each(_.bind(this.buildRelatedLinkModelFromElement, this));
+			$rls.each(_.bind(this.buildRelatedLinkModelFromElement, this));
 
 			// Fire an event so the views can update.
 			this.trigger("update:relatedLinks", this);
-			console.log("fired");
 		},
 		buildRelatedLinkModelFromElement: function (i, el) {
 			var $el = $(el);
@@ -239,7 +236,6 @@
 			});
 
 			this.relatedLinksCollection.add(model);
-			console.log('added', model);
 		},
 	});
 
